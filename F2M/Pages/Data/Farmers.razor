@@ -1,0 +1,80 @@
+﻿
+@page "/Data/Farmers"
+
+@using DataAccessLibrary
+@using DataAccessLibrary.Models
+@using F2M.Models
+
+@inject IFarmerData _db
+
+<h3>Farmer Page</h3>
+
+<h4>Insert New Farmer</h4>
+
+<EditForm Model="@newFarmer" OnValidSubmit="@InsertFarmer">
+<DataAnnotationsValidator />
+<ValidationSummary />
+
+<InputText id="firstName" @bind-Value="newFarmer.firstName" />
+<InputText id="lastName" @bind-Value="newFarmer.lastName" />
+<InputText id="phoneNumber" @bind-Value="newFarmer.phoneNumber" />
+
+<button type="submit" class="'btn btn-primary">Submit</button>
+</EditForm>
+
+<h4>Current Farmers</h4>
+@if (farmer is null)
+{
+    <p><em>Loading...</em></p>
+}
+else
+{
+    <table class="table table-striped">
+        <thead>
+            <tr>
+                <th>ID</th>
+                <th>First Name</th>
+                <th>Last Name</th>
+                <th>Phone Number</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var farmer in farmer)
+            {
+                <tr>
+                    <td>@farmer.idFarmer</td>
+                    <td>@farmer.firstName</td>
+                    <td>@farmer.lastName</td>
+                    <td>@farmer.phoneNumber</td>
+                </tr>
+            }
+        </tbody>
+    </table>
+}
+
+@code {
+    private List<FarmerModel> farmer;
+
+    private DisplayFarmerModel newFarmer = new DisplayFarmerModel();
+
+    protected override async Task OnInitializedAsync()
+    {
+        farmer = await _db.GetFarmers();
+    }
+
+    private async Task InsertFarmer()
+    {
+        FarmerModel f = new FarmerModel
+        {
+            firstName = newFarmer.firstName,
+            lastName = newFarmer.lastName,
+            phoneNumber = newFarmer.phoneNumber
+        };
+
+        await _db.InsertFarmer(f);
+
+        farmer = await _db.GetFarmers();
+
+        newFarmer = new DisplayFarmerModel();
+    }
+}

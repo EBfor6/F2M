@@ -1,0 +1,87 @@
+﻿
+@page "/Data/Crates"
+
+@using DataAccessLibrary
+@using DataAccessLibrary.Models
+@using F2M.Models
+
+@inject ICrateData _db
+
+
+<h3>Crates</h3>
+
+<h3>Add New Crate</h3>
+
+@*<EditForm Model="@newCrate" OnValidSubmit="@InsertCrates">
+    <DataAnnotationsValidator />
+    <ValidationSummary />
+
+    <InputText id="idCrate" @bind-Value="newCrate.idCrate" />
+    <InputText id="produce" @bind-Value="newCrate.produce" />
+    <InputText id="weight" @bind-Value="newCrate.weight" />
+    <InputText id="grade" @bind-Value="newCrate.grade" />
+    <InputText id="idFarmer" @bind-Value="newCrate.idFarmer" />
+
+    <button type="submit" class="'btn btn-primary">Submit</button>
+</EditForm>*@
+
+<h4>Current Farmers</h4>
+@if (crate is null)
+{
+    <p><em>Loading...</em></p>
+}
+else
+{
+    <table class="table table-striped">
+        <thead>
+            <tr>
+                <th>Crate ID</th>
+                <th>Produce</th>
+                <th>Weight</th>
+                <th>Grade</th>
+                <th>idFarmer</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var crate in crate)
+            {
+                <tr>
+                    <td>@crate.idCrate</td>
+                    <td>@crate.produce</td>
+                    <td>@crate.weight</td>
+                    <td>@crate.grade</td>
+                    <td>@crate.idFarmer</td>
+                </tr>
+            }
+        </tbody>
+    </table>
+}
+
+@code {
+    private List<CrateModel> crate;
+
+    private DisplayCrateModel newCrate = new DisplayCrateModel();
+
+    protected override async Task OnInitializedAsync()
+    {
+        crate = await _db.GetCrates();
+    }
+
+    private async Task InsertCrates()
+    {
+        CrateModel c = new CrateModel
+        {
+            idCrate = newCrate.idCrate,
+            produce = newCrate.produce,
+            weight = newCrate.weight,
+            grade = newCrate.grade,
+            idFarmer = newCrate.idFarmer
+        };
+
+        await _db.InsertCrates(c);
+
+        crate = await _db.GetCrates();
+
+        newCrate = new DisplayCrateModel();
+    }
+}

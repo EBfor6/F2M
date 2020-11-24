@@ -12,18 +12,36 @@
 
 <h3>Add New Crate</h3>
 
-@*<EditForm Model="@newCrate" OnValidSubmit="@InsertCrates">
+<EditForm Model="@newCrate" OnValidSubmit="@InsertCrates">
     <DataAnnotationsValidator />
     <ValidationSummary />
-
-    <InputText id="idCrate" @bind-Value="newCrate.idCrate" />
-    <InputText id="produce" @bind-Value="newCrate.produce" />
-    <InputText id="weight" @bind-Value="newCrate.weight" />
-    <InputText id="grade" @bind-Value="newCrate.grade" />
-    <InputText id="idFarmer" @bind-Value="newCrate.idFarmer" />
-
+    <p>
+        <label>
+            Farmer ID:
+            <InputNumber id="idFarmer" @bind-Value="newCrate.idFarmer" />
+        </label>
+    </p>
+    <p>
+        <label>
+            Produce:
+            <InputText id="produce" @bind-Value="newCrate.produce" />
+        </label>
+    </p>
+    <p>
+        <label>
+            Weight:
+            <InputText id="weight" @bind-Value="newCrate.weight" />
+        </label>
+    </p>
+    <p>
+        <label>
+            Grade:
+            <InputText id="grade" @bind-Value="newCrate.grade" />
+        </label>
+    </p>
+    
     <button type="submit" class="'btn btn-primary">Submit</button>
-</EditForm>*@
+</EditForm>
 
 <h4>Current Farmers</h4>
 @if (crate is null)
@@ -39,7 +57,7 @@ else
                 <th>Produce</th>
                 <th>Weight</th>
                 <th>Grade</th>
-                <th>idFarmer</th>
+                <th>Farmer ID</th>
             </tr>
         </thead>
         <tbody>
@@ -71,7 +89,6 @@ else
     {
         CrateModel c = new CrateModel
         {
-            idCrate = newCrate.idCrate,
             produce = newCrate.produce,
             weight = newCrate.weight,
             grade = newCrate.grade,

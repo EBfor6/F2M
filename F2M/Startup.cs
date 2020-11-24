@@ -32,6 +32,7 @@ namespace F2M
             services.AddSingleton<WeatherForecastService>();
             services.AddTransient<ISqlDataAccess, SqlDataAccess>();
             services.AddTransient<IFarmerData, FarmerData>();
+            services.AddTransient<ICrateData, CrateData>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

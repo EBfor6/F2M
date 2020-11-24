@@ -14,10 +14,26 @@
 <EditForm Model="@newFarmer" OnValidSubmit="@InsertFarmer">
 <DataAnnotationsValidator />
 <ValidationSummary />
+    <p>
+        <label>
+            First Name:
+            <InputText id="firstName" @bind-Value="newFarmer.firstName" />
+        </label>
+    </p>
+    <p>
+        <label>
+            Last Name:
+            <InputText id="lastName" @bind-Value="newFarmer.lastName" />
+        </label>
+    </p>
+    <p>
+        <label>
+            Phone Number:
+            <InputText id="phoneNumber" @bind-Value="newFarmer.phoneNumber" />
+        </label>
+    </p>
 
-<InputText id="firstName" @bind-Value="newFarmer.firstName" />
-<InputText id="lastName" @bind-Value="newFarmer.lastName" />
-<InputText id="phoneNumber" @bind-Value="newFarmer.phoneNumber" />
+
 
 <button type="submit" class="'btn btn-primary">Submit</button>
 </EditForm>

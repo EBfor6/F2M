@@ -25,8 +25,8 @@ namespace DataAccessLibrary
 
         public Task InsertCrates(CrateModel crate)
         {
-            string sql = @"insert into crates (idCrate, produce, weight, grade, idFarmer)
-                        values (@idCrate, @produce, @weight, @grade, @idFarmer);";
+            string sql = @"insert into crates (idFarmer, produce, weight, grade )
+                        values (@idFarmer, @produce, @weight, @grade);";
 
             return _db.SaveData(sql, crate);
         }

@@ -8,9 +8,9 @@ namespace F2M.Models
 {
     public class DisplayCrateModel
     {
+
         [Required]
-        [MinLength(1, ErrorMessage = "Please input the crate's id number.")]
-        public string idCrate{ get; set; }
+        public int idFarmer { get; set; }
 
         [Required]
         [MinLength(1, ErrorMessage = "Please enter the produce of the crate")]
@@ -22,8 +22,7 @@ namespace F2M.Models
         [Required]
         public string grade { get; set; }
 
-        [Required]
-        public string idFarmer { get; set; }
+        
 
     }
 }

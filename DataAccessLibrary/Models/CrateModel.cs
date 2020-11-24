@@ -6,7 +6,7 @@ namespace DataAccessLibrary.Models
 {
     public class CrateModel
     {
-        public string idCrate { get; set; }
+        public int idCrate { get; set; }
 
         public string produce { get; set; }
 
@@ -14,6 +14,6 @@ namespace DataAccessLibrary.Models
 
         public string grade { get; set; }
 
-        public string idFarmer { get; set; }
+        public int idFarmer { get; set; }
     }
 }
